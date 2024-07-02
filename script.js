@@ -18,20 +18,18 @@ document.addEventListener("DOMContentLoaded", function(){
         // check for cases
 
         if (e === "RESET") {
-            total = 0;
-            displayContainer.innerText = total; 
+            total = "0";
+            
         }
         else if (e === "DEL") {
-            if (displayContainer.innerText.length > 1) {
+            if (total.length > 1) {
                total = total.slice(0, -1); // get the string from 0th index till last (except last index);
-               displayContainer.innerText = total;
-               console.log("Delete button clicked")
             } else {
+                total = "";
                 displayContainer.innerText = "0";
             }
         } else if (e === "=") {
-            total = eval(total);
-            displayContainer.innerText = total; 
+            total = eval(total).toString();
         } else {
 
             // if last input is operator and user again enter any operator then do nothing
@@ -44,20 +42,24 @@ document.addEventListener("DOMContentLoaded", function(){
                 total[total.length - 1] === "/" ||
                 total[total.length - 1] === "-")
              ) {
-                
                 // do noting
              } else {
-                displayContainer.innerText += e;
-                total = displayContainer.innerText;
-
-             }
-
+                // if the first input is entered, then remove 0 from displayContainer.innerText.
+                if (displayContainer.innerText === "0") {
+                    displayContainer.innerText = e;
+                    total = e;
+                } else {
+                    displayContainer.innerText += e;
+                }
+                
+                
+            }
+            
             
         }
-    }
+        
+        total = displayContainer.innerText;
+        displayContainer.innerText = total; 
 
-
-
-
-    
-})
+    } 
+});
