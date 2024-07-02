@@ -64,28 +64,22 @@ body {
     text-align: center;
 }
 
-.btn.operator {
-    background-color: #637097;
-}
-
 .btn.del, .btn.reset {
     background-color: #647198;
 }
 
 .btn.equal {
     background-color: #D03F2F;
-    grid-column: span 2;
 }
 
-.btn.reset {
+.btn.reset,
+.btn.equal {
     grid-column: span 2;
-
 }
 
 .btn.del,
 .btn.reset,
-.btn.equal,
-.btn.operator {
+.btn.equal{
     color: #fff;
 }
 
