@@ -1,52 +1,49 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const displayContainer = document.querySelector(".calc-display");
-    const buttons = document.querySelectorAll(".btn");
+(function () {
+	const outputDisplay = document.getElementById("calc-display__output");
+	const calculatorButtons = document.querySelectorAll(".btn");
 
-    let total = "0"; // to store current input
-    displayContainer.innerText = total;
+	let currentExpression = "0";
+	outputDisplay.innerText = currentExpression;
 
-    buttons.forEach(button => {
-        button.addEventListener("click", function(e) {
-            displayNumber(e.target.innerText); // pass the content of button as argument
-        });
-    });
+	calculatorButtons.forEach(button => {
+		button.addEventListener("click", function(e) {
+				displayNumber(e.target.innerText);
+		});
+	});	
 
-    // function to display content
-    function displayNumber(e) {
-        // check for cases
-        if (e === "RESET") {
-            total = "0";
-        } else if (e === "DEL") {
-            if (total.length > 1) {
-                total = total.slice(0, -1); // get the string from 0th index till last (except last index)
-            } else {
-                total = "0";
-            }
-        } else if (e === "=") {
-            try {
-                total = eval(total.replace(/x/g, '*').replace(/÷/g, '/')).toString();
-            } catch {
-                total = "Error";
-            }
-        } else {
-            // if last input is operator and user again enter any operator then do nothing
-            if (
-                (e === "+" || e === "*" || e === "/" || e === "-") && 
-                (total[total.length - 1] === "+" || total[total.length - 1] === "*" || total[total.length - 1] === "/" || total[total.length - 1] === "-")
-            ) {
-                // do nothing
-            } else {
-                // if the first input is entered, then remove 0 from displayContainer.innerText.
-                if (displayContainer.innerText === "0") {
-                    displayContainer.innerText = e;
-                    total = e;
-                } else {
-                    displayContainer.innerText += e;
-                    total += e;
-                }
-            }
-        }
-        
-        displayContainer.innerText = total; 
-    }
-});
+	function displayNumber(buttonValue) {
+		if (buttonValue === "RESET") {
+			currentExpression = "0";
+		} else if (buttonValue === "DEL") {
+			if (currentExpression.length > 1) {
+				currentExpression = currentExpression.slice(0, -1);
+			} else {
+				currentExpression = "0";
+			}
+		} else if (buttonValue === "=") {
+			try {
+				currentExpression = eval(currentExpression.replace(/x/g, '*').replace(/÷/g, '/')).toString();
+			} catch {
+				currentExpression = "Error";
+			}
+		} else {
+			// if last input is operator and user again enters any operator then do nothing
+			const buttonIsOperator = buttonValue === "+" || buttonValue === "*" || buttonValue === "/" || buttonValue === "-";
+			const previousButtonIsOperator = currentExpression[currentExpression.length - 1] === "+" || currentExpression[currentExpression.length - 1] === "*" || currentExpression[currentExpression.length - 1] === "/" || currentExpression[currentExpression.length - 1] === "-";
+
+			if (buttonIsOperator && previousButtonIsOperator) {
+				// do nothing
+			} else {
+				if (outputDisplay.innerText === "0") {
+					outputDisplay.innerText = buttonValue;
+					currentExpression = buttonValue;
+				} else {
+					outputDisplay.innerText += buttonValue;
+					currentExpression += buttonValue;
+				}
+			}
+		}
+		
+		outputDisplay.innerText = currentExpression; 
+	}
+})();
