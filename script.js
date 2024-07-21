@@ -1,6 +1,6 @@
 (function () {
 	const outputDisplay = document.getElementById("calc-display__output");
-	const calculatorButtons = document.querySelectorAll(".btn");
+	const calculatorButtons = document.querySelectorAll(".calc-buttons__button");
 
 	let currentExpression = "0";
 	outputDisplay.innerText = currentExpression;

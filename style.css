@@ -15,7 +15,7 @@ body {
 }
 
 .white-color {
-    color: #fff;
+    color: #fff !important;
 }
 
 .calculator {
@@ -32,10 +32,6 @@ body {
     margin-bottom: 20px;
 }
 
-.theme {
-    font-size: 12px;
-}
-
 .calc-display__output {
     background-color: #191F32;
     font-size: 2em;
@@ -47,13 +43,13 @@ body {
     margin-left: 10px;
 }
 
-.buttons {
+.calculator__buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
 }
 
-.btn {
+.calc-buttons__button {
     background-color: #EAE3DC;
     color: #444444;
     font-size: 1.5em;
@@ -64,22 +60,23 @@ body {
     text-align: center;
 }
 
-.btn.del, .btn.reset {
+.calc-buttons__button.calc-buttons__delete, 
+.calc-buttons__button.calc-buttons__reset {
     background-color: #647198;
 }
 
-.btn.equal {
+.calc-buttons__button.calc-buttons__equal {
     background-color: #D03F2F;
 }
 
-.btn.reset,
-.btn.equal {
+.calc-buttons__button.calc-buttons__reset,
+.calc-buttons__button.calc-buttons__equal {
     grid-column: span 2;
 }
-
-.btn.del,
-.btn.reset,
-.btn.equal{
+/* 
+.calc-buttons__button.calc-buttons__delete,
+.calc-buttons__button.calc-buttons__reset,
+.calc-buttons__button.calc-buttons__equal{
     color: #fff;
-}
+} */
 
