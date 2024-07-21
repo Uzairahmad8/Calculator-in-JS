@@ -22,7 +22,7 @@
 			}
 		} else if (buttonText === "=") {
 			try {
-				currentExpression = eval(currentExpression.replace(/x/g, '*').replace(/÷/g, '/')).toString();
+				currentExpression = evaluateResult(currentExpression);
 			} catch {
 				currentExpression = "Error";
 				setTimeout(() => {
@@ -53,5 +53,9 @@
 	
 	function updateDisplay(value) {
 		displayExpression.innerText = value; 
+	}
+
+	function evaluateResult(currentExpression) {
+		return eval(currentExpression.replace(/x/g, '*').replace(/÷/g, '/')).toString()
 	}
 })();
