@@ -1,49 +1,57 @@
 (function () {
-	const outputDisplay = document.getElementById("calc-display__output");
-	const calculatorButtons = document.querySelectorAll(".calc-buttons__button");
+	const displayExpression = document.getElementById("calc-display__output");
+	const buttonElements = document.querySelectorAll(".calc-buttons__button");
 
 	let currentExpression = "0";
-	outputDisplay.innerText = currentExpression;
+	updateDisplay(currentExpression);
 
-	calculatorButtons.forEach(button => {
+	buttonElements.forEach(button => {
 		button.addEventListener("click", function(e) {
-				displayNumber(e.target.innerText);
+			validateInput(e.target.innerText);
 		});
 	});	
 
-	function displayNumber(buttonValue) {
-		if (buttonValue === "RESET") {
+	function validateInput(buttonText) {
+		if (buttonText === "RESET") {
 			currentExpression = "0";
-		} else if (buttonValue === "DEL") {
+		} else if (buttonText === "DEL") {
 			if (currentExpression.length > 1) {
 				currentExpression = currentExpression.slice(0, -1);
 			} else {
 				currentExpression = "0";
 			}
-		} else if (buttonValue === "=") {
+		} else if (buttonText === "=") {
 			try {
 				currentExpression = eval(currentExpression.replace(/x/g, '*').replace(/÷/g, '/')).toString();
 			} catch {
 				currentExpression = "Error";
+				setTimeout(() => {
+					updateDisplay("0");
+				}, 500);
 			}
 		} else {
-			// if last input is operator and user again enters any operator then do nothing
-			const buttonIsOperator = buttonValue === "+" || buttonValue === "*" || buttonValue === "/" || buttonValue === "-";
+			const buttonIsOperator = buttonText === "+" || buttonText === "*" || buttonText === "/" || buttonText === "-";
 			const previousButtonIsOperator = currentExpression[currentExpression.length - 1] === "+" || currentExpression[currentExpression.length - 1] === "*" || currentExpression[currentExpression.length - 1] === "/" || currentExpression[currentExpression.length - 1] === "-";
+			const buttonIsDot = buttonText == ".";
+			const previousButtonIsDot = currentExpression[currentExpression.length - 1] === ".";
 
-			if (buttonIsOperator && previousButtonIsOperator) {
+			if ((buttonIsOperator && previousButtonIsOperator) || (buttonIsDot && previousButtonIsDot)) {
 				// do nothing
 			} else {
-				if (outputDisplay.innerText === "0") {
-					outputDisplay.innerText = buttonValue;
-					currentExpression = buttonValue;
+				if (displayExpression.innerText === "0") {
+					currentExpression = buttonText;
+					updateDisplay(buttonText)
 				} else {
-					outputDisplay.innerText += buttonValue;
-					currentExpression += buttonValue;
+					displayExpression.innerText += buttonText;
+					currentExpression += buttonText;
 				}
 			}
 		}
 		
-		outputDisplay.innerText = currentExpression; 
+		updateDisplay(currentExpression);
+	}
+	
+	function updateDisplay(value) {
+		displayExpression.innerText = value; 
 	}
 })();
