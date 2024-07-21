@@ -55,7 +55,7 @@
 		displayExpression.innerText = value; 
 	}
 
-	function evaluateResult(currentExpression) {
-		return eval(currentExpression.replace(/x/g, '*').replace(/÷/g, '/')).toString()
+	function evaluateResult(input) {
+		return eval(input.replace(/x/g, '*').replace(/÷/g, '/')).toString()
 	}
 })();
