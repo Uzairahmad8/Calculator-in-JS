@@ -1,11 +1,11 @@
 (function () {
 	const displayExpression = document.getElementById("calc-display__output");
-	const buttonElements = document.querySelectorAll(".calc-buttons__button");
+	const calculatorButtons = document.querySelectorAll(".calc-buttons__button");
 
 	let currentExpression = "0";
 	updateDisplay(currentExpression);
 
-	buttonElements.forEach(button => {
+	calculatorButtons.forEach(button => {
 		button.addEventListener("click", function(e) {
 			validateInput(e.target.innerText);
 		});
