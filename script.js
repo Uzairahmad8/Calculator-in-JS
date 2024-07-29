@@ -1,15 +1,23 @@
 (function () {
 	const displayExpression = document.getElementById("calc-display__output");
 	const calculatorButtons = document.querySelectorAll(".calc-buttons__button");
-
+	
 	let currentExpression = "0";
 	updateDisplay(currentExpression);
+
+	function updateDisplay(value) {
+		displayExpression.innerText = value; 
+	}
+
+	function evaluateResult(input) {
+		return eval(input.replace(/x/g, '*').replace(/÷/g, '/')).toString()
+	}
 
 	calculatorButtons.forEach(button => {
 		button.addEventListener("click", function(e) {
 			validateInput(e.target.innerText);
 		});
-	});	
+	});
 
 	function validateInput(buttonText) {
 		if (buttonText === "RESET") {
@@ -35,9 +43,7 @@
 			const buttonIsDot = buttonText == ".";
 			const previousButtonIsDot = currentExpression[currentExpression.length - 1] === ".";
 
-			if ((buttonIsOperator && previousButtonIsOperator) || (buttonIsDot && previousButtonIsDot)) {
-				// do nothing
-			} else {
+			if (!((buttonIsOperator && previousButtonIsOperator) || (buttonIsDot && previousButtonIsDot))) {
 				if (displayExpression.innerText === "0") {
 					currentExpression = buttonText;
 					updateDisplay(buttonText)
@@ -49,13 +55,5 @@
 		}
 		
 		updateDisplay(currentExpression);
-	}
-	
-	function updateDisplay(value) {
-		displayExpression.innerText = value; 
-	}
-
-	function evaluateResult(input) {
-		return eval(input.replace(/x/g, '*').replace(/÷/g, '/')).toString()
 	}
 })();
